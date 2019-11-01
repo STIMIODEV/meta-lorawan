@@ -1,0 +1,21 @@
+[Unit]
+Description=LoRaWAN server
+
+[Service]
+Type=simple
+PermissionsStartOnly=true
+User=lorawan
+Group=lorawan
+
+Environment=LORAWAN_HOME=/var/lib/lorawan-server LORAWAN_LOG_ROOT=/var/log/lorawan-server
+
+ExecStartPre=/bin/mkdir -p /var/log/lorawan-server
+ExecStartPre=/bin/chown -R lorawan:lorawan /var/log/lorawan-server
+
+ExecStart=/usr/lib/lorawan-server/bin/lorawan-server
+
+Restart=always
+RestartSec=1
+
+[Install]
+WantedBy=multi-user.target
